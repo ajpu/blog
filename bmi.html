@@ -8,6 +8,12 @@
     <title>BMI</title>
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/js/uikit-icons.min.js"></script>
     <meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no,email=no,adress=no" />
@@ -39,9 +45,17 @@
             <input v-model="height" type="number" placeholder="身高(m)">m
             <p></p>
             <input v-model="weight" type="number" placeholder="体重(kg)">kg
-            <p>你的BMI:{{bmi}}</p>
-            <p>你的体重上限是:{{bmiMax}}kg</p>
-            <p>你的体重下限是:{{bmiMin}}kg</p>
+            <p>
+                <span v-if="bmi<17 || bmi==null" class="uk-label uk-label-default">bmi 小于 17 偏低</span>
+                <span v-if="(bmi>=20 && bmi<=25) || bmi == null" class="uk-label uk-label-success">bmi 20 ~ 25 正常</span>
+                <span v-if="(bmi>=25 && bmi<=30) || bmi == null" class="uk-label uk-label-warning">bmi 25 ~ 30 超重</span>
+                <span v-if="bmi>30 || bmi == null" class="uk-label uk-label-danger">bmi 大于 30 肥胖</span>
+            </p>
+            <p v-if="bmi">你的BMI: <span v-html="bmi"></span></p>
+            <p v-if="bmi">根据你的身高{{height}}m，你的体重上限是:{{bmiMax}}kg</p>
+            <p v-if="bmi">根据你的身高{{height}}m，你的体重下限是:{{bmiMin}}kg</p>
+            <p v-if="bmi">根据你的身高{{height}}m，你的最佳体重应该是:{{bmiWeight}}kg</p>
+            <p v-if="bmi">根据你的体重{{weight}}kg，你的最佳身高应该是:{{bmiHeight}}m</p>
             <hr>
             <a href="https://baike.baidu.com/item/%E8%BA%AB%E4%BD%93%E8%B4%A8%E9%87%8F%E6%8C%87%E6%95%B0/8706438?fromtitle=BMI"
                 target="blank">BMI(身体质量指数)
@@ -88,6 +102,8 @@
                     app.bmi = (weight / (height * height)).toFixed(1)
                     app.bmiMax = (height * height * 25).toFixed(1)
                     app.bmiMin = (height * height * 20).toFixed(1)
+                    app.bmiWeight = ((height * height) * 22.5).toFixed(2)
+                    app.bmiHeight = Math.sqrt(weight / 22.5).toFixed(2)
                 }
             }
         },
