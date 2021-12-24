@@ -30,12 +30,15 @@
 
         #app {
             background-color: #fff;
-            max-width: 80%;
-            width: 1000px;
-            padding: 20px;
-            margin: 5%;
-            border-radius: 10px;
+            max-width: 100%;
+            width: 750px;
+            padding: 50px 25px;
             box-shadow: 0 0 5px 0px #c1c1c1;
+        }
+
+        input {
+            border: 1px solid #000;
+            padding: 10px;
         }
     </style>
 </head>
@@ -45,9 +48,9 @@
 
         <div>
             <h1>BMI</h1>
-            <input v-model="height" type="number" placeholder="身高(m)">m
+            <input v-model="height" type="number" placeholder="身高(m)">
             <p></p>
-            <input v-model="weight" type="number" placeholder="体重(kg)">kg
+            <input v-model="weight" type="number" placeholder="体重(kg)">
             <p>
                 <span v-if="bmi<18.5 || bmi == null" class="uk-label uk-label-default">bmi 小于 18.5 偏低</span>
                 <span v-if="(bmi>=18.5 && bmi<24) || bmi == null" class="uk-label uk-label-success">bmi 18.5 ~ 24
