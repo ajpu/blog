@@ -1,2 +1,2 @@
 #/bin/sh
-docker run --name lnp -itd -p 8001:80 -v /mnt/nginx/vhost:/mnt/nginx/vhost /mnt/project:/mnt/project --restart=always ws00919882/lnp:0.1.6 /bin/bash /root/init.sh
+docker run --name lnp -itd -p 8001:80 -v /mnt/nginx/vhost:/mnt/nginx/vhost -v /mnt/project:/mnt/project --restart=always ws00919882/lnp:0.1.6 /bin/bash /root/init.sh
